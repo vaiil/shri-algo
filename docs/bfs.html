@@ -1,0 +1,46 @@
+<html lang="ru">
+<head>
+    <title>BFS</title>
+</head>
+
+<body>
+<script>
+
+  function bfs (root, result) {
+    const queue = [root]
+    while (queue.length) {
+      const item = queue.shift()
+      result.push(item.value)
+      if (item.left) {
+        queue.push(item.left)
+      }
+      if (item.right) {
+        queue.push(item.right)
+      }
+    }
+  }
+
+  const tree = {
+    value: 0,
+    left: {
+      value: 5,
+      left: {
+        value: 16,
+        left: {
+          value: -7
+        }
+      },
+      right: {
+        value: -20
+      }
+    },
+    right: {
+      value: 99
+    }
+  }
+  const nodes = []
+  bfs(tree, nodes)
+  console.log(nodes)
+</script>
+</body>
+</html>
