@@ -1,0 +1,31 @@
+<html lang="ru">
+<head>
+    <title>Max sum sub array</title>
+</head>
+
+<body>
+<script>
+
+  function maxSubArraySum (arr) {
+    let bestSum = arr[0]
+    let currentSum = bestSum
+    for (let i = 1, c = arr.length; i < c; i++) {
+      const value = arr[i]
+      if (currentSum <= 0) {
+        currentSum = value
+      } else {
+        currentSum += value
+      }
+      if (currentSum > bestSum) {
+        bestSum = currentSum
+      }
+    }
+    return bestSum
+  }
+
+  console.log(maxSubArraySum([1, 2, -1, 2, -10, 5]))
+  console.log(maxSubArraySum([1, 2, -1, 2, -10, 1]))
+  console.log(maxSubArraySum([2, -1, 3, -3, 2, -1, 1]))
+</script>
+</body>
+</html>
