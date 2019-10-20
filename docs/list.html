@@ -1,0 +1,42 @@
+<html lang="ru">
+<head>
+    <title>List</title>
+</head>
+
+<body>
+<script>
+
+  function revertList (list) {
+    let current = list
+    let reverted = {
+      value: current.value
+    }
+    current = current.next
+    while (current) {
+      reverted = {
+        value: current.value,
+        next: reverted
+      }
+      current = current.next
+    }
+    return reverted
+  }
+
+  const list = {
+    value: 'a',
+    next: {
+      value: 'b',
+      next: {
+        value: 'c',
+        next: {
+          value: 'd'
+        }
+      }
+    }
+  }
+  console.log('List: ', list)
+
+  console.log('Reverted list: ', revertList(list))
+</script>
+</body>
+</html>
