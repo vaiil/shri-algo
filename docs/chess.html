@@ -5,94 +5,103 @@
 
 <body>
 <script>
-  const chessSize = 8
 
-  function makeChess () {
-    const chess = []
-    for (let i = 0; i < chessSize; i++) {
-      chess.push(Array(chessSize).fill(false))
-    }
-    return chess
-  }
 
   function chessPrettyPrint (chess) {
     return chess.map(line => line.map(v => v ? '|#' : '| ').join('')).join('\n')
   }
 
-  function checkRow (chess, row) {
-    return chess[row].every(cell => !cell)
+  function copyChess (chess) {
+    return chess.map(line => line.slice())
   }
 
-  function checkCol (chess, col) {
-    return chess.every(cell => !cell[col])
-  }
+  function getQueenPositions (chessSize) {
+    const results = []
 
-  function checkRiseCross (chess, row, col) {
-    for (let i = row, j = col; i >= 0 && j >= 0; i--, j--) {
-      if (chess[i][j]) {
-        return false
+    function makeChess () {
+      const chess = []
+      for (let i = 0; i < chessSize; i++) {
+        chess.push(Array(chessSize).fill(false))
       }
+      return chess
     }
-    for (let i = row + 1, j = col + 1; i < chessSize && j < chessSize; i++, j++) {
-      if (chess[i][j]) {
-        return false
-      }
-    }
-    return true
-  }
 
-  function checkFallCross (chess, row, col) {
-    for (let i = row, j = col; i >= 0 && j < chessSize; i--, j++) {
-      if (chess[i][j]) {
-        return false
-      }
+    function checkRow (chess, row) {
+      return chess[row].every(cell => !cell)
     }
-    for (let i = row + 1, j = col - 1; i < chessSize && j >= 0; i++, j--) {
-      if (chess[i][j]) {
-        return false
-      }
-    }
-    return true
-  }
 
-  function checkCross (chess, row, col) {
-    return checkRiseCross(chess, row, col) && checkFallCross(chess, row, col)
-  }
-
-  function getPossibleLinePositions (chess, row) {
-    if (!checkRow(chess, row)) {
-      return []
+    function checkCol (chess, col) {
+      return chess.every(cell => !cell[col])
     }
-    const pos = []
-    for (let i = 0; i < chessSize; i++) {
-      if (checkCol(chess, i) && checkCross(chess, row, i)) {
-        pos.push(i)
+
+    function checkRiseCross (chess, row, col) {
+      for (let i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+        if (chess[i][j]) {
+          return false
+        }
       }
-    }
-    return pos
-  }
-
-  function setQueens (chess, row = 0) {
-    if (row === chessSize) {
+      for (let i = row + 1, j = col + 1; i < chessSize && j < chessSize; i++, j++) {
+        if (chess[i][j]) {
+          return false
+        }
+      }
       return true
     }
-    const positions = getPossibleLinePositions(chess, row)
-    if (!positions.length) {
-      return false
+
+    function checkFallCross (chess, row, col) {
+      for (let i = row, j = col; i >= 0 && j < chessSize; i--, j++) {
+        if (chess[i][j]) {
+          return false
+        }
+      }
+      for (let i = row + 1, j = col - 1; i < chessSize && j >= 0; i++, j--) {
+        if (chess[i][j]) {
+          return false
+        }
+      }
+      return true
     }
-    for (let i = 0, c = positions.length; i < c; i++) {
-      const col = positions[i]
-      chess[row][col] = true
-      if (setQueens(chess, row + 1)) {
+
+    function checkCross (chess, row, col) {
+      return checkRiseCross(chess, row, col) && checkFallCross(chess, row, col)
+    }
+
+    function getPossibleLinePositions (chess, row) {
+      if (!checkRow(chess, row)) {
+        return []
+      }
+      const pos = []
+      for (let i = 0; i < chessSize; i++) {
+        if (checkCol(chess, i) && checkCross(chess, row, i)) {
+          pos.push(i)
+        }
+      }
+      return pos
+    }
+
+    function setQueens (chess, row = 0) {
+      if (row === chessSize) {
+        results.push(copyChess(chess))
         return true
       }
-      chess[row][col] = false
+      const positions = getPossibleLinePositions(chess, row)
+      if (!positions.length) {
+        return false
+      }
+      for (let i = 0, c = positions.length; i < c; i++) {
+        const col = positions[i]
+        chess[row][col] = true
+        setQueens(chess, row + 1)
+        chess[row][col] = false
+      }
     }
+
+    const chess = makeChess()
+    setQueens(chess)
+    return results
   }
 
-  const chess = makeChess()
-  console.log(setQueens(chess) ? 'success' : 'failed')
-  console.log(chessPrettyPrint(chess))
+  console.log(getQueenPositions(8))
 </script>
 </body>
 </html>
