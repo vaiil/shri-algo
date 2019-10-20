@@ -1,0 +1,50 @@
+<html lang="ru">
+<head>
+    <title>BFS</title>
+</head>
+
+<body>
+<script>
+
+  function getSpiral (edgeSize) {
+
+    const arr = []
+    for (let i = 0; i < edgeSize; i++) {
+      arr.push(new Array(edgeSize))
+    }
+    const square = {
+      row: 0,
+      col: 0,
+      startValue: 1
+    }
+    while (edgeSize > 0) {
+      edgeSize--
+      if(!edgeSize){
+        arr[square.row][square.col] = square.startValue
+      }
+      for (let i = 0; i < edgeSize; i++) {
+        arr[square.row][square.col + i] = square.startValue + i
+        arr[square.row + i][square.col + edgeSize] = square.startValue + edgeSize + i
+        arr[square.row + edgeSize][square.col + edgeSize - i] = square.startValue + edgeSize * 2 + i
+        arr[square.row + edgeSize - i][square.col] = square.startValue + edgeSize * 3 + i
+      }
+      square.startValue += edgeSize * 4
+      square.row += 1
+      square.col += 1
+      edgeSize--
+    }
+    return arr
+  }
+
+  function spiralToString (n) {
+    const max = n ** 2
+    const maxStrLen = max.toString().length
+    const spiral = getSpiral(n)
+    return spiral.map(line => line.map(v => v.toString().padStart(maxStrLen)).join(' ')).join('\n')
+  }
+
+  console.log(spiralToString(4))
+  console.log(spiralToString(5))
+</script>
+</body>
+</html>
