@@ -1,0 +1,39 @@
+<html lang="ru">
+<head>
+    <title>BFS</title>
+</head>
+
+<body>
+<script>
+
+  function checkParentheses (str) {
+    const stack = []
+    const charMap = {
+      ')': '(',
+      '>': '<',
+      '}': '{'
+    }
+    const availableChars = ['(', ')', '<', '>', '{', '}']
+
+    const chars = str.split('')
+      .filter(char => availableChars.indexOf(char) !== -1);
+
+    for(let char of chars){
+      const expectedPrev = charMap[char]
+      if(expectedPrev){
+        const prev = stack.pop()
+        if(prev !== expectedPrev) {
+          return false
+        }
+      }else{
+        stack.push(char)
+      }
+    }
+    return true
+  }
+  console.log('((<>))', checkParentheses('((<>))'))
+  console.log('({}(<>))', checkParentheses('({}(<>))'))
+  console.log('<{>', checkParentheses('<{>'))
+</script>
+</body>
+</html>
