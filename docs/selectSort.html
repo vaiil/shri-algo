@@ -7,25 +7,29 @@
     arr[j] = arrI
   }
 
-  function bubbleSort (arr) {
-    for (let i = 1, c = arr.length; i < c; i++) {
-      for (let j = i - 1; j >= 0; j--) {
-        if (arr[j] <= arr[j + 1]) {
-          break
+  function selectSort (arr) {
+    for (let i = 0, c = arr.length; i < c; i++) {
+      let min = arr[i], minIndex = i
+      for (let j = i + 1; j < c; j++) {
+        if (arr[j] < min) {
+          minIndex = j
+          min = arr[j]
         }
-        swap(arr, j + 1, j)
+      }
+      if (i !== minIndex) {
+        swap(arr, minIndex, i)
       }
     }
   }
 
   const arr = [0, 4, 1, 2, 1, -5]
   console.log('Unsorted #1: ', arr.slice())
-  bubbleSort(arr)
+  selectSort(arr)
   console.log('Sorted #1', arr.slice())
 
-  const a2 = ['a', 'b','bbb','a']
+  const a2 = ['a', 'b', 'bbb', 'a']
   console.log('Unsorted #2: ', a2.slice())
-  bubbleSort(a2)
+  selectSort(a2)
   console.log('Sorted #2: ', a2.slice())
 </script>
 </body>
