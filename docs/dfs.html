@@ -1,0 +1,37 @@
+<html lang="ru">
+<head>
+    <title>DFS</title>
+</head>
+<body>
+<script>
+
+  function dfs (root, result) {
+    if(!root){
+      return
+    }
+    result.push(root.value)
+    dfs(root.left, result)
+    dfs(root.right, result)
+  }
+
+  const tree = {
+    value: 0,
+    left: {
+      value: 5,
+      left: {
+        value: 16
+      },
+      right: {
+        value: -20
+      }
+    },
+    right: {
+      value: 99
+    }
+  }
+  const nodes = []
+  dfs(tree, nodes)
+  console.log(nodes)
+</script>
+</body>
+</html>
