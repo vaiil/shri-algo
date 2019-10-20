@@ -1,0 +1,35 @@
+<html lang="ru">
+<head>
+    <title>Binary search</title>
+</head>
+
+<body>
+<script>
+
+
+  function find (needle, mixed) {
+    function binarySearch (start, end = mixed.length) {
+      let mid = start + end
+      mid = (mid - mid % 2) / 2
+      const value = mixed[mid]
+      if (value === needle) {
+        return mid
+      } else {
+        if (mid === end) {
+          return -1
+        }
+        if (needle < value) {
+          return binarySearch(start, mid)
+        } else {
+          return binarySearch(mid + 1, end)
+        }
+      }
+    }
+
+    return binarySearch(0, mixed.length)
+  }
+
+  console.log(find(4, [0, 1, 4]))
+</script>
+</body>
+</html>
