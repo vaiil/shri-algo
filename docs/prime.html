@@ -1,0 +1,29 @@
+<html lang="ru">
+<head>
+    <title>Prime</title>
+</head>
+
+<body>
+<script>
+
+  function isPrime (checkingPrime, prevPrimes) {
+    return prevPrimes.every(prime => checkingPrime % prime)
+  }
+
+  function getPrimes (n) {
+    if (n < 2) {
+      return
+    }
+    const primes = [2]
+    for (let i = 3; i <= n; i++) {
+      if(isPrime(i, primes)){
+        primes.push(i)
+      }
+    }
+    return primes
+  }
+
+  console.log(getPrimes(100))
+</script>
+</body>
+</html>
