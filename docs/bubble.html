@@ -1,0 +1,30 @@
+<html>
+<body>
+<script>
+  function swap (arr, i, j) {
+    const arrI = arr[i]
+    arr[i] = arr[j]
+    arr[j] = arrI
+  }
+
+  function bubbleSort (arr) {
+    for (let i = 1, c = arr.length; i < c; i++) {
+      for (let j = i - 1; j >= 0; j--) {
+        if (arr[j] < arr[j + 1]) {
+          break
+        }
+        swap(arr, j + 1, j)
+      }
+    }
+  }
+
+  const arr = [-5, 0, 4, 1, 2, 1]
+  bubbleSort(arr)
+  console.log(arr)
+
+  const a2 = ['a', 'b','bbb','a']
+  bubbleSort(a2)
+  console.log(a2)
+</script>
+</body>
+</html>
